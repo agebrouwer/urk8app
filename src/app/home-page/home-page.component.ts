@@ -1,24 +1,22 @@
+// src/app/home-page/home-page.component.ts
 import { Component } from '@angular/core';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-home-page',
   standalone: true,
   imports: [
-    RouterModule,
-    RouterOutlet,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
     MatListModule,
   ],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  templateUrl: './home-page.component.html',
+  styleUrls: ['./home-page.component.scss'],
 })
-export class AppComponent {}
+export class HomePageComponent {}
