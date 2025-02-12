@@ -1,44 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-// Import RecaptchaModule from ng-recaptcha.
-import { RecaptchaModule } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  // Include the RecaptchaModule along with CommonModule and ReactiveFormsModule.
-  imports: [CommonModule, ReactiveFormsModule, RecaptchaModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
   contactForm!: FormGroup;
-  // Store the token returned when reCAPTCHA is resolved.
   captchaToken: string | null = null;
-  
-  constructor(private fb: FormBuilder) {}
-  
+
+  constructor(private fb: FormBuilder, private zone: NgZone) {}
+
   ngOnInit(): void {
-    // Initialize the reactive form with validators.
+    // Initialize the reactive form with required validators.
     this.contactForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: [''],
       message: ['', Validators.required]
     });
+
+    // Set up a global callback function for reCAPTCHA.
+    // The callback function name "resolvedCaptcha" must match the data-callback attribute in the HTML.
+    (window as any)['resolvedCaptcha'] = (token: string) => {
+      // Use NgZone.run to ensure Angular detects the change.
+      this.zone.run(() => {
+        console.log("Captcha resolved with token: " + token);
+        this.captchaToken = token;
+      });
+    };
   }
-  
-  // Called when the reCAPTCHA is resolved.
-  onCaptchaResolved(token: string | null): void {
-    console.log('Captcha resolved with token:', token);
-    this.captchaToken = token;
-  }
-  
+
   onSubmit(): void {
     if (this.contactForm.valid && this.captchaToken) {
-      console.log('Form Data:', this.contactForm.value);
-      // Process your form data and captcha token (e.g., send them to your backend for validation).
+      const formData = this.contactForm.value;
+      console.log('Form Data:', formData);
+      // Here you would typically send formData and captchaToken to your backend for verification.
     } else {
       console.warn('Form is invalid or captcha not resolved.');
     }
