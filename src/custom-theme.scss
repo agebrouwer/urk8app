@@ -10,11 +10,11 @@
 @include mat.core();
 
 // Define the theme object.
-$urk8app-theme: mat.define-theme((
+$ut_achtste-theme: mat.define-theme((
   color: (
     theme-type: dark,
-    primary: mat.$cyan-palette,
-    tertiary: mat.$cyan-palette,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
   ),
   density: (
     scale: 0,
@@ -25,16 +25,12 @@ $urk8app-theme: mat.define-theme((
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 :root {
-  @include mat.all-component-themes($urk8app-theme);
+  @include mat.all-component-themes($ut_achtste-theme);
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
 // For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
-// @include mat.typography-hierarchy($urk8app-theme);
+// @include mat.typography-hierarchy($ut_achtste-theme);
 
 // Comment out the line below if you want to use the deprecated `color` inputs.
-// @include mat.color-variants-backwards-compatibility($urk8app-theme);
-/* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// @include mat.color-variants-backwards-compatibility($ut_achtste-theme);

@@ -1,24 +1,33 @@
-import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, ViewChild } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
+import { CommonModule } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterModule, RouterOutlet } from '@angular/router';
-
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterModule,
+    CommonModule,
     RouterOutlet,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
+    RouterLink,
+    RouterLinkActive,
     MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
     MatListModule,
   ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrl: './app.component.css',
 })
-export class AppComponent {}
+export class AppComponent {
+  @ViewChild('drawer') drawer!: MatDrawer;
+
+  title = 'Home';
+
+  navigateStyling(title: string) {
+    this.drawer.close();
+    this.title = title;
+  }
+}
