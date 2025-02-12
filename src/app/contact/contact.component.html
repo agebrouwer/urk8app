@@ -1,29 +1,47 @@
 <div class="contact-container">
-    <h2>Contact Us</h2>
-    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-      <div class="form-field">
-        <label for="name">Name:</label>
-        <input id="name" type="text" formControlName="name" required>
-      </div>
-      <div class="form-field">
-        <label for="email">Email:</label>
-        <input id="email" type="email" formControlName="email" required>
-      </div>
-      <div class="form-field">
-        <label for="phone">Phone:</label>
-        <input id="phone" type="text" formControlName="phone">
-      </div>
-      <div class="form-field">
-        <label for="message">Message:</label>
-        <textarea id="message" rows="5" formControlName="message" required></textarea>
-      </div>
-      <div class="form-field captcha">
-        <!-- The reCAPTCHA element. It automatically picks up the site key from the app configuration -->
-        <re-captcha (resolved)="onCaptchaResolved($event)"></re-captcha>
-      </div>
-      <div class="form-field">
-        <button type="submit" [disabled]="!contactForm.valid || !captchaToken">Submit</button>
-      </div>
-    </form>
-  </div>
-  
+  <h2>Contact Us</h2>
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" id="contact-form">
+    <div class="form-field">
+      <label for="name">Name:</label>
+      <input id="name" type="text" formControlName="name" required />
+    </div>
+    <div class="form-field">
+      <label for="email">Email:</label>
+      <input id="email" type="email" formControlName="email" required />
+    </div>
+    <div class="form-field">
+      <label for="phone">Phone:</label>
+      <input id="phone" type="text" formControlName="phone" />
+    </div>
+    <div class="form-field">
+      <label for="message">Message:</label>
+      <textarea
+        id="message"
+        rows="5"
+        formControlName="message"
+        required
+      ></textarea>
+    </div>
+    <div class="form-field captcha">
+      <script src="https://www.google.com/recaptcha/api.js"></script>
+      <script>
+        function onSubmit(token) {
+          document.getElementById("contact-form").submit();
+        }
+      </script>
+      <button
+        class="g-recaptcha"
+        data-sitekey="reCAPTCHA_site_key"
+        data-callback="onSubmit"
+        data-action="submit"
+      >
+        Submit
+      </button>
+    </div>
+    <div class="form-field">
+      <button type="submit" [disabled]="!contactForm.valid || !captchaToken">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
